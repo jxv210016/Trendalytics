@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
 import TradingViewWidget from './TradingViewWidget'; // Import the TradingViewWidget component
+import LogoAnimation from './LogoAnimation'; // Make sure this is pointing to the correct file path
 
 const App = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -19,9 +20,7 @@ const App = () => {
     if (!searchTerm.trim()) return;
 
     const newSearchTerm = searchTerm.trim();
-    if (!recentSearches.includes(newSearchTerm)) {
-      setRecentSearches([newSearchTerm, ...recentSearches].slice(0, 5));
-    }
+    setRecentSearches([...new Set([newSearchTerm, ...recentSearches])].slice(0, 5));
 
     try {
       const response = await fetch('/api/analyze_sentiment', {
@@ -65,6 +64,7 @@ const App = () => {
 
   return (
     <div className="App">
+      <LogoAnimation /> {/* Logo animation added here */}
       <div className="topbar">
         <div className="search-container">
           <form className="search-bar" onSubmit={handleSearchSubmit}>

@@ -4,19 +4,20 @@ from textblob import TextBlob
 # Define the company list globally so it can be imported by other modules if needed
 # Define the company list globally so it can be imported by other modules if needed
 companies = [
-    "Amazon", "Apple", "Alphabet", "Microsoft", "Meta Platforms", "Dell Technologies",
-  "Intel", "HP", "IBM", "Qualcomm", "Oracle", "Honeywell International", "Jabil",
-  "Broadcom", "Uber", "Salesforce", "Micron Technology", "Visa",
-  "Hewlett Packard Enterprise", "PayPal Holdings", "Nvidia", "Applied Materials",
-  "CDW", "Advanced Micro Devices", "Mastercard", "Coupang", "Texas Instruments",
-  "Whirlpool", "Cognizant Technology Solutions", "Western Digital", "Kyndryl Holdings",
-  "Fiserv", "Adobe", "Block", "Lam Research", "Booking Holdings", "DXC Technology",
-  "Opendoor Technologies", "Fidelity National Information Services", "Leidos Holdings",
-  "Corning", "VMware", "Intuit", "Wayfair", "Qurate Retail", "Analog Devices",
-  "Expedia Group", "S&P Global", "Insight Enterprises", "Chewy", "eBay", "KLA",
-  "Global Payments", "Airbnb", "Booz Allen Hamilton Holding", "ON Semiconductor",
-  "Sanmina", "NCR", "Rockwell Automation", "Science Applications International",
-  "ServiceNow", "Tesla", "Lockheed",
+    "Amazon", "Apple", "Alphabet", "Google", "Microsoft", "Meta Platforms", "Meta", "Facebook",
+"Dell Technologies", "Dell", "Intel", "HP", "Hewlett-Packard", "IBM", "Qualcomm", "Oracle",
+"Honeywell International", "Honeywell", "Jabil", "Jabil Circuit", "Broadcom", "Uber",
+"Salesforce", "Salesforce.com", "Micron Technology", "Micron", "Visa", "Hewlett Packard Enterprise", "HPE",
+"PayPal Holdings", "PayPal", "Nvidia", "Applied Materials", "Applied", "CDW", "Advanced Micro Devices", "AMD",
+"Mastercard", "Coupang", "Texas Instruments", "TI", "Whirlpool", "Cognizant Technology Solutions", "Cognizant",
+"Western Digital", "WD", "Kyndryl Holdings", "Kyndryl", "Fiserv", "Adobe", "Block", "Square",
+"Lam Research", "Lam", "Booking Holdings", "Booking.com", "DXC Technology", "DXC", "Opendoor Technologies", "Opendoor",
+"Fidelity National Information Services", "FIS", "Leidos Holdings", "Leidos", "Corning", "VMware", "Intuit",
+"Wayfair", "Qurate Retail", "Qurate", "Analog Devices", "ADI", "Expedia Group", "Expedia", "S&P Global", "S&P",
+"Insight Enterprises", "Insight", "Chewy", "eBay", "KLA", "KLA Corporation", "Global Payments", "Airbnb",
+"Booz Allen Hamilton Holding", "Booz Allen", "ON Semiconductor", "ON Semi", "Sanmina", "NCR",
+"Rockwell Automation", "Rockwell", "Science Applications International", "SAIC", "ServiceNow", "Tesla",
+"Lockheed Martin", "Lockheed",
 ]
 
 def fetch_articles(company_name, news_api_key):

@@ -6,6 +6,7 @@ const App = () => {
   const [recentSearches, setRecentSearches] = useState([]);
   const [analysisResult, setAnalysisResult] = useState('');
   const [sentiment, setSentiment] = useState('');
+  const [articles, setArticles] = useState([]); // State to hold the articles
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
@@ -16,8 +17,7 @@ const App = () => {
     if (!searchTerm.trim()) return;
 
     const newSearchTerm = searchTerm.trim();
-    // Check if the searchTerm (case-insensitive) is not already in the recentSearches
-    if (!recentSearches.some(search => search.toLowerCase() === newSearchTerm.toLowerCase())) {
+    if (!recentSearches.includes(newSearchTerm)) {
       setRecentSearches([newSearchTerm, ...recentSearches].slice(0, 5));
     }
 
@@ -34,6 +34,7 @@ const App = () => {
       if (response.ok) {
         setAnalysisResult(`Sentiment: ${data.overall_sentiment}`);
         setSentiment(data.overall_sentiment);
+        setArticles(data.top_articles); // Set the articles in state
       } else {
         throw new Error(data.error || 'Error occurred while fetching analysis');
       }
@@ -45,14 +46,8 @@ const App = () => {
     setSearchTerm('');
   };
 
-  // Function to get the class for the footer based on the sentiment
   const getFooterClass = () => {
-    if (sentiment === 'Negative') {
-      return 'footer-negative';
-    } else if (sentiment === 'Positive') {
-      return 'footer-positive';
-    }
-    return '';
+    return sentiment === 'Positive' ? 'footer-positive' : sentiment === 'Negative' ? 'footer-negative' : '';
   };
 
   return (
@@ -79,7 +74,12 @@ const App = () => {
       </div>
       
       <main className="content">
-        {/* Content could be more components or information */}
+        {articles.map((article, index) => (
+          <a key={index} className="article-card" href={article.url} target="_blank" rel="noopener noreferrer">
+            <div className="article-title">{article.title}</div>
+            <div className="article-sentiment">Sentiment Score: {article.sentiment_score.toFixed(2)}</div>
+          </a>
+        ))}
       </main>
       
       <footer className={`footer ${getFooterClass()}`}>

@@ -121,8 +121,46 @@ body, html {
     width: 100%;
     padding: 0 10px;
   }
+}
 
+/* Styles for article cards */
+.article-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 600px; /* Adjust width as needed */
+  margin: 10px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+  text-decoration: none;
+  color: #333;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease-in-out;
+  margin-bottom: 20px; /* Add space at the bottom */
+}
+
+.article-card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.article-title {
+  font-size: 1.1em;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.article-sentiment {
+  font-size: 0.9em;
+  color: #666;
+  margin-top: 5px;
+}
+
+@media (max-width: 768px) {
   .article-card {
     width: 90%;
+    margin-left: auto;
+    margin-right: auto;
   }
 }

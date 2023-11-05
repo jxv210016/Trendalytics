@@ -2,6 +2,7 @@ import requests
 from textblob import TextBlob
 
 # Define the company list globally so it can be imported by other modules if needed
+# Define the company list globally so it can be imported by other modules if needed
 companies = [
     "Amazon", "Apple", "Alphabet", "Microsoft", "Meta Platforms", "Dell Technologies",
   "Intel", "HP", "IBM", "Qualcomm", "Oracle", "Honeywell International", "Jabil",
@@ -33,15 +34,13 @@ def fetch_articles(company_name, news_api_key):
         return None
 
 def analyze_sentiment(company_name):
-    """
-    Perform sentiment analysis on news articles related to the provided company name.
-    """
     # Normally, you'd retrieve the API key from a secure environment variable or secrets manager
-    news_api_key = 'a6e886de6df443e4b3c72540af7fa917'  # This should be securely managed
+    news_api_key = 'a6e886de6df443e4b3c72540af7fa917'  # Replace with your actual API key, this should be securely managed
 
     # Initialize variables to store sentiment polarities
     sentiment_polarities = []
-    total_polarity = 0
+    positive_articles = []
+    negative_articles = []
 
     # Check if the provided company name is in the list of known companies
     if company_name not in companies:
@@ -57,32 +56,55 @@ def analyze_sentiment(company_name):
             "company_name": company_name
         }
 
-    # Perform sentiment analysis on each article and calculate the average polarity
+    # Perform sentiment analysis on each article and categorize them based on sentiment polarity
     for article in articles:
-        # Use the article's description for sentiment analysis
         article_content = article.get('description', '')
-        
-        # Analyze the sentiment of the article content
         sentiment_score = TextBlob(article_content).sentiment.polarity
+        article_data = {
+            "title": article.get('title'),
+            "url": article.get('url'),
+            "sentiment_score": sentiment_score
+        }
         sentiment_polarities.append(sentiment_score)
+        if sentiment_score > 0:
+            positive_articles.append(article_data)
+        elif sentiment_score < 0:
+            negative_articles.append(article_data)
 
-    # Calculate the average polarity
-    if sentiment_polarities:
-        total_polarity = sum(sentiment_polarities) / len(sentiment_polarities)
-    
-    # Determine if the overall sentiment is positive, negative, or neutral
+    # Sort the positive and negative articles by the absolute value of their sentiment score
+    positive_articles = sorted(positive_articles, key=lambda x: x['sentiment_score'], reverse=True)
+    negative_articles = sorted(negative_articles, key=lambda x: abs(x['sentiment_score']), reverse=True)
+
+    # Take the top 5 from each list to ensure a mix of positive and negative articles
+    top_positive_articles = positive_articles[:5]
+    top_negative_articles = negative_articles[:5]
+
+    # Combine the top positive and negative articles
+    top_articles = top_positive_articles + top_negative_articles
+
+    # Calculate the average polarity of all articles
+    average_polarity = sum(sentiment_polarities) / len(sentiment_polarities) if sentiment_polarities else 0
+
+    # Determine the overall sentiment
     overall_sentiment = "Neutral"
-    if total_polarity > 0:
+    if average_polarity > 0:
         overall_sentiment = "Positive"
-    elif total_polarity < 0:
+    elif average_polarity < 0:
         overall_sentiment = "Negative"
 
     # Compile the results into a dictionary
     sentiment_results = {
         "company_name": company_name,
-        "average_sentiment_polarity": total_polarity,
+        "average_sentiment_polarity": average_polarity,
         "overall_sentiment": overall_sentiment,
-        "articles_analyzed": len(sentiment_polarities)
+        "articles_analyzed": len(sentiment_polarities),
+        "top_articles": top_articles  # This will include the mixed top articles in the result
     }
 
     return sentiment_results
+
+# Example usage:
+# result = analyze_sentiment("Apple")
+# print(result)
+
+# ... (any additional code you might have, like Flask or Django app definitions) ...

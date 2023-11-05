@@ -1,27 +1,15 @@
 import React, { useState } from 'react';
 import './App.css';
-import TradingViewWidget from './TradingViewWidget'; // Ensure this import path is correct
 
 const App = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [recentSearches, setRecentSearches] = useState([]);
   const [analysisResult, setAnalysisResult] = useState('');
   const [sentiment, setSentiment] = useState('');
-  const [articles, setArticles] = useState([]);
-  const [showRecentSearches, setShowRecentSearches] = useState(false);
+  const [articles, setArticles] = useState([]); // State to hold the articles
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
-  };
-
-  const handleSearchFocus = () => {
-    setShowRecentSearches(true);
-  };
-
-  const handleSearchBlur = () => {
-    setTimeout(() => {
-      setShowRecentSearches(false);
-    }, 200);
   };
 
   const handleSearchSubmit = async (e) => {
@@ -46,7 +34,7 @@ const App = () => {
       if (response.ok) {
         setAnalysisResult(`Sentiment: ${data.overall_sentiment}`);
         setSentiment(data.overall_sentiment);
-        setArticles(data.top_articles);
+        setArticles(data.top_articles); // Set the articles in state
       } else {
         throw new Error(data.error || 'Error occurred while fetching analysis');
       }
@@ -55,7 +43,6 @@ const App = () => {
       console.error(error);
     }
 
-    setShowRecentSearches(false);
     setSearchTerm('');
   };
 
@@ -73,27 +60,19 @@ const App = () => {
               placeholder="Enter company name"
               value={searchTerm}
               onChange={handleSearchChange}
-              onFocus={handleSearchFocus}
-              onBlur={handleSearchBlur}
             />
             <button type="submit">Analyze Sentiment</button>
           </form>
-          {showRecentSearches && (
-            <div className="recent-searches-dropdown">
-              {recentSearches.map((search, index) => (
-                <div key={index} className="dropdown-item" onClick={() => setSearchTerm(search)}>
-                  {search}
-                </div>
-              ))}
-            </div>
-          )}
+          <div className="recent-searches">
+            {recentSearches.map((search, index) => (
+              <span key={index} className="badge" onClick={() => setSearchTerm(search)}>
+                {search}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
-
-      <div className={`sentiment-indicator ${getFooterClass()}`}>
-        <div className="sentiment">{analysisResult}</div>
-      </div>
-
+      
       <main className="content">
         {articles.map((article, index) => (
           <a key={index} className="article-card" href={article.url} target="_blank" rel="noopener noreferrer">
@@ -102,14 +81,14 @@ const App = () => {
           </a>
         ))}
       </main>
-
-      <TradingViewWidget />
-
-      <footer className="footer">
-        {/* Footer content */}
+      
+      <footer className={`footer ${getFooterClass()}`}>
+        <div className="sentiment">
+          {analysisResult}
+        </div>
       </footer>
     </div>
   );
-};
+}
 
 export default App;

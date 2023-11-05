@@ -5,8 +5,7 @@ body, html {
   margin: 0;
   padding: 0;
   height: 100%;
-  background-color: #121212; /* Dark background for the body */
-  color: #e0e0e0; /* Lighter text color for better contrast */
+  background-color: #f9f9f9;
 }
 
 .App {
@@ -17,9 +16,9 @@ body, html {
 
 .topbar {
   width: 100%;
-  background-color: #1f1f1f; /* Darker topbar background */
+  background-color: #fff;
   padding: 20px 0;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Darker shadow for depth */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   position: fixed;
   top: 0;
   left: 0;
@@ -45,16 +44,15 @@ body, html {
 .search-bar input {
   flex-grow: 1;
   padding: 10px 20px;
-  border: 2px solid #333; /* Dark border for input */
-  background-color: #1f1f1f; /* Matching dark background for input */
-  color: #e0e0e0; /* Light text color for input */
+  border: 2px solid #d1d1d1;
   border-radius: 20px 0 0 20px;
   outline: none;
 }
 
 .search-bar button {
   padding: 10px 20px;
-  background-color: #10ac84; /* Button color for contrast */
+  background-color: #10ac84;
+  color: white;
   border: none;
   border-radius: 0 20px 20px 0;
   cursor: pointer;
@@ -64,50 +62,87 @@ body, html {
   background-color: #0e9577;
 }
 
+.recent-searches {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.badge {
+  background-color: #e1e1e1;
+  padding: 5px 10px;
+  border-radius: 15px;
+  margin: 2px;
+  cursor: pointer;
+}
+
 .content {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  padding-top: 80px; /* Adjusted to not overlap with fixed topbar */
+  padding-top: 100px;
 }
 
-.header-container {
-  width: 100%; /* Full width */
-  text-align: center; /* Center the text within this container */
+.footer {
+  width: 100%;
+  text-align: center;
+  padding: 15px 0;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  transition: background-color 0.3s;
 }
 
-.company-header {
-  color: #e0e0e0; /* Light text color for contrast */
-  margin: 20px 0; /* Spacing above and below the header */
+.footer-positive {
+  background-color: green;
+  color: white;
 }
 
-.articles-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center; /* Center articles and allow them to wrap */
-  gap: 20px; /* Space between the articles */
-  width: 100%; /* Full width to center properly */
+.footer-negative {
+  background-color: red;
+  color: white;
 }
 
+.sentiment {
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .search-bar, .search-container {
+    width: 90%;
+  }
+
+  .content {
+    padding-top: 80px;
+    width: 100%;
+    padding: 0 10px;
+  }
+}
+
+/* Styles for article cards */
 .article-card {
   display: flex;
   flex-direction: column;
-  width: calc(50% - 20px); /* Adjust width for side-by-side layout */
+  width: 100%;
+  max-width: 600px; /* Adjust width as needed */
   margin: 10px;
   padding: 20px;
-  border: 1px solid #333;
+  border: 1px solid #ddd;
   border-radius: 8px;
-  background-color: #1f1f1f;
+  background-color: #fff;
   text-decoration: none;
-  color: #e0e0e0;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  color: #333;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.3s ease-in-out;
+  margin-bottom: 20px; /* Add space at the bottom */
 }
 
 .article-card:hover {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .article-title {
@@ -118,30 +153,14 @@ body, html {
 
 .article-sentiment {
   font-size: 0.9em;
-  color: #a9a9a9; /* Gray text for sentiment score */
+  color: #666;
   margin-top: 5px;
 }
 
-.footer {
-  width: 100%;
-  text-align: center;
-  padding: 15px 0;
-  background-color: #1f1f1f;
-  position: relative; /* Footer now flows with the content */
-}
-
-.footer-positive {
-  background-color: #228b22;
-}
-
-.footer-negative {
-  background-color: #b22222;
-}
-
-/* Media queries for responsive design */
 @media (max-width: 768px) {
   .article-card {
-    /* On smaller screens, make the card take full width minus padding */
-    width: calc(100% - 40px);
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
   }
 }

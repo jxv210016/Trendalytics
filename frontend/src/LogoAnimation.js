@@ -1,7 +1,7 @@
 // LogoAnimation.js or wherever your LogoAnimation component is defined
 import React from 'react';
-import ballImage from '/Users/jayvanam/Documents/GitHub/Trendalytics/frontend/src/ball.png';
-import textImage from '/Users/jayvanam/Documents/GitHub/Trendalytics/frontend/src/text.png';
+import ballImage from './ball.png';
+import textImage from './text.png';
 import './LogoAnimation.css';
 
 const LogoAnimation = () => {

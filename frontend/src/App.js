@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
+import TradingViewWidget from './TradingViewWidget'; // Import the TradingViewWidget component
 
 const App = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -7,6 +8,7 @@ const App = () => {
   const [analysisResult, setAnalysisResult] = useState('');
   const [sentiment, setSentiment] = useState('');
   const [articles, setArticles] = useState([]); // State to hold the articles
+  const [dropdownVisible, setDropdownVisible] = useState(false); // State to manage the dropdown visibility
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
@@ -44,6 +46,17 @@ const App = () => {
     }
 
     setSearchTerm('');
+    setDropdownVisible(false); // Hide the dropdown after search
+  };
+
+  const handleSearchFocus = () => {
+    setDropdownVisible(true);
+  };
+
+  const handleSearchBlur = () => {
+    setTimeout(() => {
+      setDropdownVisible(false);
+    }, 100);
   };
 
   const getFooterClass = () => {
@@ -59,21 +72,26 @@ const App = () => {
               type="text"
               placeholder="Enter company name"
               value={searchTerm}
+              onFocus={handleSearchFocus}
+              onBlur={handleSearchBlur}
               onChange={handleSearchChange}
             />
             <button type="submit">Analyze Sentiment</button>
           </form>
-          <div className="recent-searches">
-            {recentSearches.map((search, index) => (
-              <span key={index} className="badge" onClick={() => setSearchTerm(search)}>
-                {search}
-              </span>
-            ))}
-          </div>
+          {dropdownVisible && (
+            <div className="recent-searches-dropdown">
+              {recentSearches.map((search, index) => (
+                <span key={index} className="badge" onClick={() => setSearchTerm(search)}>
+                  {search}
+                </span>
+              ))}
+            </div>
+          )}
         </div>
       </div>
       
       <main className="content">
+        <TradingViewWidget />
         {articles.map((article, index) => (
           <a key={index} className="article-card" href={article.url} target="_blank" rel="noopener noreferrer">
             <div className="article-title">{article.title}</div>

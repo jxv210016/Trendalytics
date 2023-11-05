@@ -5,7 +5,8 @@ body, html {
   margin: 0;
   padding: 0;
   height: 100%;
-  background-color: #f9f9f9;
+  background-color: #121212; /* Dark background */
+  color: #ccc; /* Light text color for readability */
 }
 
 .App {
@@ -16,7 +17,7 @@ body, html {
 
 .topbar {
   width: 100%;
-  background-color: #fff;
+  background-color: #1e1e1e; /* Dark topbar background */
   padding: 20px 0;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   position: fixed;
@@ -44,14 +45,16 @@ body, html {
 .search-bar input {
   flex-grow: 1;
   padding: 10px 20px;
-  border: 2px solid #d1d1d1;
+  border: 1px solid #333;
+  background-color: #2a2a2a;
+  color: #fff;
   border-radius: 20px 0 0 20px;
   outline: none;
 }
 
 .search-bar button {
   padding: 10px 20px;
-  background-color: #10ac84;
+  background-color: #3a3a3a;
   color: white;
   border: none;
   border-radius: 0 20px 20px 0;
@@ -59,22 +62,30 @@ body, html {
 }
 
 .search-bar button:hover {
-  background-color: #0e9577;
+  background-color: #4b4b4b;
 }
 
-.recent-searches {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 10px;
+.recent-searches-dropdown {
+  display: none; /* Hide by default, will be shown when focused */
+  flex-direction: column;
+  position: absolute;
+  top: 50px;
+  width: 100%;
+  max-width: 600px;
+  background-color: #2a2a2a;
+  border-radius: 0 0 20px 20px;
+  padding: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 1001;
 }
 
 .badge {
-  background-color: #e1e1e1;
+  background-color: #333;
   padding: 5px 10px;
   border-radius: 15px;
   margin: 2px;
   cursor: pointer;
+  color: #fff;
 }
 
 .content {
@@ -98,17 +109,13 @@ body, html {
 }
 
 .footer-positive {
-  background-color: green;
+  background-color: #005f00; /* Darker green for positive sentiment */
   color: white;
 }
 
 .footer-negative {
-  background-color: red;
+  background-color: #7f0000; /* Darker red for negative sentiment */
   color: white;
-}
-
-.sentiment {
-  cursor: pointer;
 }
 
 @media (max-width: 768px) {
@@ -128,17 +135,16 @@ body, html {
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: 600px; /* Adjust width as needed */
+  max-width: 600px;
   margin: 10px;
   padding: 20px;
-  border: 1px solid #ddd;
   border-radius: 8px;
-  background-color: #fff;
+  background-color: #1e1e1e;
   text-decoration: none;
-  color: #333;
+  color: #ccc;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.3s ease-in-out;
-  margin-bottom: 20px; /* Add space at the bottom */
+  margin-bottom: 20px;
 }
 
 .article-card:hover {

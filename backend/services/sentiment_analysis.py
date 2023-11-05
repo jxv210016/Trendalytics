@@ -16,8 +16,11 @@ companies = [
 "Wayfair", "Qurate Retail", "Qurate", "Analog Devices", "ADI", "Expedia Group", "Expedia", "S&P Global", "S&P",
 "Insight Enterprises", "Insight", "Chewy", "eBay", "KLA", "KLA Corporation", "Global Payments", "Airbnb",
 "Booz Allen Hamilton Holding", "Booz Allen", "ON Semiconductor", "ON Semi", "Sanmina", "NCR",
-"Rockwell Automation", "Rockwell", "Science Applications International", "SAIC", "ServiceNow", "Tesla",
-"Lockheed Martin", "Lockheed",
+"Rockwell Automation", "Rockwell", "Science Applications International", "SAIC", "ServiceNow", "Tesla","Lockheed Martin", "Lockheed", "AMZN", "AAPL", "GOOGL", "GOOG", "MSFT", "META", "DELL", "INTC", "HPQ", "IBM", "QCOM", "ORCL", "HON", "JBL", "AVGO", 
+"UBER", "CRM", "MU", "V", "HPE", "PYPL", "NVDA", "AMAT", "CDW", "AMD", "MA", "CPNG", "TXN", 
+"WHR", "CTSH", "WDC", "KD", "FISV", "ADBE", "SQ", "LRCX", "BKNG", "DXC", "OPEN", "FIS", "LDOS", 
+"GLW", "VMW", "INTU", "W", "QRTEA", "QRTEB", "ADI", "EXPE", "SPGI", "NSIT", "CHWY", "EBAY", "KLAC", 
+"GPN", "ABNB", "BAH", "ON", "SANM", "NCR", "ROK", "SAIC", "NOW", "TSLA",
 ]
 
 def fetch_articles(company_name, news_api_key):
